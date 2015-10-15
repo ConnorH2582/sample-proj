@@ -1,0 +1,55 @@
+{% extends 'contact_manager/base.html' %}
+    {% load staticfiles %}
+
+    {% block head %}
+
+        {{ block.super }}
+
+    {% endblock head %}
+
+    {% block header %}
+
+        {{ block.super }}
+
+    {% endblock header %}
+
+    {% block content %}
+            <div id = "event_div" class = "col-xs-6 col-md-6 text-center">
+                <a href= "{% url 'contact_manager:create_event' %}"><p id = "new_event_btn" class = "btn-primary text-center">Add Event</p></a>
+                <h1 id = "events_heading">Events:</h1>
+                    <ul>
+                        {% for event in all_events %}
+                            <li class = "event_links"><a href = "{% url 'contact_manager:event_profile' event.nameyear %}">{{ event.name }} {{ event.date.year }}</a></li>
+                        {% empty %}
+                            <li>No events added yet.</li>
+                        {% endfor %}
+                    </ul>
+            </div>
+
+            <div id = "contact_div" class = "col-xs-6 col-md-6 text-center">
+                <div class="btn-group col-xs-12 col-md-12 text center" >
+                    <button type="button" id="event_dropdown_button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Add Contact <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li id = "dropdown_heading">Choose event:</li>
+                    {% for event in all_events %}
+                        <li class = "event_menu_choice"><a href = "{% url 'contact_manager:create_contact' nameyear=event.nameyear %}">{{ event.name }} {{ event.date.year }}</a></li>
+                    {% empty %}
+                        <li><a href="#">You must add an event to add a contact</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+                <h1 id = "contacts_heading" class= "col-xs-6 col-md-6 text-center">Contacts:</h1>
+                    <ul class= "col-xs-6 col-md-6">
+                        {% for contact in all_contacts %}
+                            <li class = "contact_links text-center"><a href = "{% url 'contact_manager:contact_profile' contact.endpoint %}">{{ contact.first_name }} {{ contact.last_name }}</a></li>
+                        {% empty %}
+                            <li class= "col-xs-6 col-md-6 text-center">No contacts added yet.</li>
+                        {% endfor %}
+                    </ul>
+
+
+    {% endblock content %}

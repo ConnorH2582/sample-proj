@@ -1,0 +1,36 @@
+{% extends 'contact_manager/base.html' %}
+    {% load staticfiles %}
+
+    {% block head %}
+
+        {{ block.super }}
+
+    {% endblock head %}
+
+    {% block header %}
+
+        {{ block.super }}
+
+    {% endblock header %}
+
+    {% block content %}
+
+            <div id = "new_contact_form" class = "col-xs-6 col-md-6 text-center">
+                <h2>Add new contact from {{ contact_event.name }} {{ contact_event.date.year }}</h2>
+                {% for message in messages %}
+                    <p id = "new_contact_parameters_error">{{ message }}</p>
+                {% endfor %}
+
+                <form role="form" name="contact_form" method="POST" action = "{% url 'contact_manager:create_contact' contact_event.nameyear %}">
+                        {% csrf_token %}
+                        <ul>
+                            <li>{{ contact_form.first_name }}</li>
+                            <li>{{ contact_form.last_name }}</li>
+                            <li>{{ contact_form.email }}</li>
+                            <li>{{ contact_form.phone }}</li>
+                            <li>{{ contact_form.is_favorite }} Mark Favorite</li>
+                        </ul>
+                    <input name = "contact_info" id="create_contact_button" class = "btn-primary col-xs-6 col-md-6 text-center" type = "submit" value= "Create Contact">
+                </form>
+            </div>
+        {% endblock %}

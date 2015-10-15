@@ -1,0 +1,28 @@
+{% extends 'contact_manager/base.html' %}
+    {% load staticfiles %}
+
+    {% block head %}
+
+        {{ block.super }}
+
+    {% endblock head %}
+
+    {% block header %}
+
+        {{ block.super }}
+
+    {% endblock header %}
+
+    {% block content %}
+                {% for message in messages %}
+                    <p id = "event_parameters_error">{{ message }}</p>
+                {% endfor %}
+
+        <form role="form" name="event_form" method="POST" action = "{% url 'contact_manager:create_event' %}">
+            {% csrf_token %}
+            {{ event_form.name }}
+            {{ event_form.date }}
+            <input name = "event_info" id="learn_more_button" class = "btn-primary text-center" type = "submit" value= "Add Event">
+        </form>
+
+    {% endblock content %}

@@ -1,0 +1,53 @@
+{% load staticfiles %}
+<html>
+    {% block head %}
+        <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script src="{% static "contact_manager/main.js" %}"></script>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+            <link rel="stylesheet" type="text/css" href= "{% static 'contact_manager/main.css' %}">
+            <link rel="stylesheet" type="text/css" href= "{% static 'contact_manager/reset.css' %}">
+        </head>
+    {% endblock head %}
+
+    <body>
+
+        {% block header %}
+            <div class = "header">
+                <header>
+                    <nav id = "navbar" class="navbar navbar-default navbar-static-top">
+
+                        <div class="container-fluid">
+
+                            <h1 id = "header-title" class="text-center"><span id = "header-box"><a href = "{% url 'contact_manager:index' %}">Welcome to your Contact Manager</a></span></h1>
+
+                                    <div id = "search_form">
+                                        <form role="search" name="search_form" method="GET" value = "name" action = "{% url 'contact_manager:contact_search' %}">
+                                                {% csrf_token %}
+                                            <input type="text" placeholder = "Contact Search" name="search_query">
+                                            <input name = "search_button" id="search_button" class = "btn-success text-center text-center" type = "submit" value= "Go!">
+                                        </form>
+                                    </div>
+                        </div>
+                    </nav>
+
+                </header>
+            </div>
+
+        {% endblock header %}
+
+        {% block content %}
+
+        <div class = "content">
+
+
+        </div>
+        {% endblock content %}
+
+        {% block footer %}
+
+        {% endblock footer %}
+
+    </body>

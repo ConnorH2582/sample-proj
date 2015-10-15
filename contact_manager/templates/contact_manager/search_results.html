@@ -1,0 +1,27 @@
+{% extends 'contact_manager/base.html' %}
+    {% load staticfiles %}
+
+    {% block head %}
+
+        {{ block.super }}
+
+    {% endblock head %}
+
+    {% block header %}
+
+        {{ block.super }}
+
+    {% endblock header %}
+
+    {% block content %}
+
+        <div id = "search_results" class = "col-xs-12 col-md-12 text-center">
+            <h1 id = "search_header">Search Results for "{{ submitted_query }}":</h1>
+            {% for contact in search_matches %}
+                <li class = "contact_links text-center"><a href = "{% url 'contact_manager:contact_profile' contact.endpoint %}">{{ contact.first_name }} {{ contact.last_name }}</a></li>
+            {% empty %}
+                <li class= "col-xs-6 col-md-6 text-center">No contacts matching query.</li>
+            {% endfor %}
+        </div>
+
+    {% endblock %}

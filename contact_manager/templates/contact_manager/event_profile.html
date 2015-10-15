@@ -1,0 +1,34 @@
+{% extends 'contact_manager/base.html' %}
+    {% load staticfiles %}
+
+    {% block head %}
+
+        {{ block.super }}
+
+    {% endblock head %}
+
+    {% block header %}
+
+        {{ block.super }}
+
+    {% endblock header %}
+
+    {% block content %}
+
+    <h1 id = "event_profile_header" class = "col-xs-12 col-md-12 text-center"> {{ viewed_event.name }} {{ viewed_event.date.year }}</h1>
+        </br>
+        <h1 id = "event_date" class = "col-xs-12 col-md-12 text-center"> {{ event_month }} {{ viewed_event.date.day }}, {{ viewed_event.date.year }}</h1>
+
+        <p id = "new_event_contact_btn" class = "btn-primary col-xs-2 col-md-2 text-center"><a href= "{% url 'contact_manager:create_contact' viewed_event.nameyear %}">Add Event Contact</a></p>
+        <div id = "event_contacts_div" class = "col-xs-12 col-md-12 text-center">
+
+            <h2 id = "event_contacts_heading">Contacts:</h2>
+                <ul>
+                    {% for contact in event_contacts %}
+                        <li class = "contact_links text-center" ><a href = "{% url 'contact_manager:contact_profile' contact.endpoint %}">{{ contact.first_name }} {{ contact.last_name }}</a></li>
+                    {% empty %}
+                        <li>No contacts added yet.</li>
+                    {% endfor %}
+                </ul>
+        </div>
+    {% endblock %}

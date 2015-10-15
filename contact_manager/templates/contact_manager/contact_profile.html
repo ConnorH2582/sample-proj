@@ -1,0 +1,41 @@
+{% extends 'contact_manager/base.html' %}
+    {% load staticfiles %}
+
+    {% block head %}
+
+        {{ block.super }}
+
+    {% endblock head %}
+
+    {% block header %}
+
+        {{ block.super }}
+
+    {% endblock header %}
+
+    {% block content %}
+
+
+        <h1 id = "contact_profile_header" class = "col-xs-12 col-md-12 text-center"> {{ viewed_contact.full_name }}</h1>
+            </br>
+            <ul id = "contact_data" class = "col-xs-12 col-md-12 text-center">
+                <li>First met at {{ viewed_contact.event_met.name }}</li>
+                <li>Email:  {{ viewed_contact.email}}</li>
+                <li>Phone Number: {{ viewed_contact.phone}}</li>
+                <li>Date Created: {{ viewed_contact.created_at }}</li>
+                <li>Latest Update: {{ viewed_contact.updated_at }}</li>
+            {% if viewed_contact.is_favorite %}
+                    <form role = "form" name="unfavorite_form" method="POST" action = "{% url 'contact_manager:contact_profile' viewed_contact.endpoint %}">
+                        {% csrf_token %}
+                        <input name = "update_contact" id="update_contact_button" class = "btn-danger text-center" type = "submit" value= "Remove Favorite">
+                    </form>
+                <span class="glyphicon glyphicon-heart" aria-hidden="true" id= "heart"></span>
+            {% else %}
+                    <form role = "form" name="favorite_form" method="POST" action = "{% url 'contact_manager:contact_profile' viewed_contact.endpoint %}">
+                        {% csrf_token %}
+                        <input name = "update_contact" id="update_contact_button" class = "btn-danger text-center" type = "submit" value= "Add Favorite">
+                    </form>
+            {% endif %}
+            </ul>
+
+    {% endblock content %}
